@@ -1,6 +1,11 @@
 require 'faker'
 
 class PokemonsController < ApplicationController
+  def index
+    @pokemons = Pokemon.all
+    render json: @pokemons
+  end
+
   def create
     unless pokemon_params[:trainer_id].nil?
       default = {}
@@ -25,6 +30,7 @@ class PokemonsController < ApplicationController
   end
 
   def destroy
+    puts params
     @pokemon = Pokemon.find(params[:id])
     unless @pokemon.nil?
       @pokemon.destroy
