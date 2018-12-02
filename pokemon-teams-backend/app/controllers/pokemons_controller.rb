@@ -34,6 +34,15 @@ class PokemonsController < ApplicationController
     end
   end
 
+  def show
+    @pokemon = Pokemon.find(params[:id])
+    if @pokemon.nil?
+      render json: {error: "Pokemon not Found!"}, status: 404
+    else
+      render json: @pokemon
+    end 
+  end
+
   private
   def pokemon_params
     params.require(:pokemon).permit(:nickname, :species, :trainer_id)
