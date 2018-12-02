@@ -1,3 +1,16 @@
-const BASE_URL = "http://localhost:3000"
-const TRAINERS_URL = `${BASE_URL}/trainers`
-const POKEMONS_URL = `${BASE_URL}/pokemons`
+document.addEventListener('DOMContentLoaded', init)
+
+function init() {
+  domController = new DomController
+  apiAdapter = new ApiAdapter
+  apiAdapter.getTrainers()
+  .then(p=>{
+    p.forEach(trainer => {
+      new Trainer(trainer)
+    })
+  })
+  .then (function(allcreated) {
+    domController.appendCardsOnPage(Trainer.renderTrainers())
+    domController.appendPokemons(Trainer.renderPokemons())
+  })
+}
